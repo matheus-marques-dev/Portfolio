@@ -7,20 +7,29 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('is-scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// Menu mobile
+// Menu mobile (painel independente, fora do <header> — ver nota no CSS)
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
+const mobileDrawer = document.getElementById('mobileDrawer');
+
+function closeMobileDrawer() {
+  mobileDrawer.classList.remove('is-open');
+  navToggle.classList.remove('is-open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  document.documentElement.style.overflow = '';
+}
+
 navToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('is-open');
+  const open = mobileDrawer.classList.toggle('is-open');
   navToggle.classList.toggle('is-open', open);
   navToggle.setAttribute('aria-expanded', String(open));
+  document.documentElement.style.overflow = open ? 'hidden' : '';
 });
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('is-open');
-    navToggle.classList.remove('is-open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  });
+mobileDrawer.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', closeMobileDrawer);
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 860) closeMobileDrawer();
 });
 
 // Seção ativa no menu

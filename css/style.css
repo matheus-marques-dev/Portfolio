@@ -101,15 +101,28 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:600; line-height:1.05; }
 .nav__toggle.is-open span:first-child{ transform:translateY(3.75px) rotate(45deg); }
 .nav__toggle.is-open span:last-child{ transform:translateY(-3.75px) rotate(-45deg); }
 
-.nav__links.is-open{
-  position:fixed; inset:0; z-index:90; background:rgba(12,12,13,.98);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.8rem;
+/* Menu mobile: fica FORA do <header> de propósito — um ancestral com
+   backdrop-filter (.nav.is-scrolled) criaria um novo bloco de contenção
+   e quebraria o position:fixed deste painel, vazando por cima da página. */
+.mobile-drawer{
+  position:fixed; inset:0; z-index:90; background:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transition:opacity .35s var(--ease), visibility .35s var(--ease);
 }
-.nav__links.is-open .nav__link{ font-family:var(--font-display); font-size:1.8rem; font-weight:600; }
+.mobile-drawer.is-open{ opacity:1; visibility:visible; }
+.mobile-drawer__links{ display:flex; flex-direction:column; align-items:center; gap:1.8rem; }
+.mobile-drawer__links a{
+  font-family:var(--font-display); font-size:clamp(1.7rem, 8vw, 2.4rem); font-weight:600; color:var(--text-dim);
+  transition:color .25s var(--ease);
+}
+.mobile-drawer__links a:hover, .mobile-drawer__links a:focus-visible{ color:var(--accent); }
 
 @media (max-width:860px){
-  .nav__links:not(.is-open){ display:none; }
+  .nav__links{ display:none; }
   .nav__toggle{ display:flex; }
+}
+@media (min-width:861px){
+  .mobile-drawer{ display:none; }
 }
 
 /* ---------- Buttons ---------- */
