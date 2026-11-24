@@ -124,7 +124,7 @@ section{padding-block:clamp(64px,10vw,120px)}
 .proj:hover,.proj:focus-visible{color:var(--on-lime)}
 .proj:hover::before,.proj:focus-visible::before{transform:none}
 .proj:hover .label,.proj:focus-visible .label,.proj:hover p,.proj:focus-visible p,.proj:hover dd,.proj:focus-visible dd,.proj:hover dt,.proj:focus-visible dt{color:var(--on-lime)}
-.shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:#13160E;max-width:100%;border-bottom:1px solid var(--line)}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden;background:#13160E;max-width:100%;border-radius:12px;border:1px solid var(--line)}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .proj:hover .shot img{transform:scale(1.04)}
 .console{margin:0;height:100%;padding:clamp(16px,3vw,28px);font-family:var(--mono);font-size:clamp(.7rem,1.3vw,.86rem);line-height:1.6;color:#D6DCC8;background:#13160E;white-space:pre;overflow:hidden}
@@ -295,10 +295,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     </div>
     <div class="projects">
       <a class="proj" href="https://action-conciliador-de-estoque.vercel.app" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/projects/conciliador.webp" alt="Tela do Conciliador de Estoque" width="1280" height="800" loading="lazy"></div>
         <div class="proj-body">
           <div class="proj-top"><span class="label">Full stack · Em destaque</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           <h3>Conciliador de Estoque</h3>
+          <div class="shot"><img src="assets/projects/conciliador.webp" alt="Tela do Conciliador de Estoque" width="1280" height="800" loading="lazy"></div>
           <p>Reconcilia o estoque entre o ERP e os marketplaces.</p>
           <dl>
             <div><dt>Problema</dt><dd>Divergências de estoque entre o ERP e canais como Mercado Livre e Shopee geram vendas sem produto e anúncios zerados sem aviso.</dd></div>
@@ -308,10 +308,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </a>
       <a class="proj" href="https://quick-bill-vert.vercel.app" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/projects/quickbill.webp" alt="Interface do gerador de orçamentos QuickBill" width="1280" height="800" loading="lazy"></div>
         <div class="proj-body">
           <div class="proj-top"><span class="label">Web app</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           <h3>QuickBill</h3>
+          <div class="shot"><img src="assets/projects/quickbill.webp" alt="Interface do gerador de orçamentos QuickBill" width="1280" height="800" loading="lazy"></div>
           <p>Gerador de orçamentos que exporta PDF direto do navegador, sem backend.</p>
           <dl>
             <div><dt>Problema</dt><dd>Pequenos negócios precisam emitir orçamentos rápidos sem depender de planilhas ou serviços pagos.</dd></div>
@@ -321,10 +321,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </a>
       <a class="proj" href="https://matheus-marques-dev.github.io/CatalogoFilmes/" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/projects/catalogo.webp" alt="Catálogo de filmes com busca, favoritos e ordenação" width="1280" height="800" loading="lazy"></div>
         <div class="proj-body">
           <div class="proj-top"><span class="label">Web app</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
           <h3>Catálogo de Filmes</h3>
+          <div class="shot"><img src="assets/projects/catalogo.webp" alt="Catálogo de filmes com busca, favoritos e ordenação" width="1280" height="800" loading="lazy"></div>
           <p>Catálogo interativo com busca, ordenação e favoritos que ficam salvos.</p>
           <dl>
             <div><dt>Problema</dt><dd>Consumir uma base de filmes em JSON e apresentá-la de forma rápida, responsiva e sem telas em branco.</dd></div>
@@ -334,7 +334,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </a>
       <a class="proj" href="https://github.com/matheus-marques-dev/SistemaBancarioJava" target="_blank" rel="noopener">
-        <div class="shot"><pre class="console" aria-label="Simulação do console do Sistema Bancário"><b>=== BANCO JAVA ===</b>
+        <div class="proj-body">
+          <div class="proj-top"><span class="label">Console · Código no GitHub</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          <h3>Sistema Bancário</h3>
+          <div class="shot"><pre class="console" aria-label="Simulação do console do Sistema Bancário"><b>=== BANCO JAVA ===</b>
 1. Criar Conta
 2. Depositar/Sacar
 3. Transferir
@@ -345,9 +348,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <i>Titular:</i> Matheus
 <i>Tipo (1-Corrente, 2-Poupança):</i> 1
 <b>✓ Conta criada com sucesso.</b></pre></div>
-        <div class="proj-body">
-          <div class="proj-top"><span class="label">Console · Código no GitHub</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-          <h3>Sistema Bancário</h3>
           <p>Simulador bancário via console, minha base prática em Java.</p>
           <dl>
             <div><dt>Problema</dt><dd>Fixar os quatro pilares da orientação a objetos resolvendo um domínio realista: contas corrente e poupança.</dd></div>
