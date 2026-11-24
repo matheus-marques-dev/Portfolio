@@ -12,7 +12,7 @@
 <meta name="description" content="Matheus Marques — Desenvolvedor Fullstack. Estudante de Desenvolvimento de Software Multiplataforma na Fatec Franca.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Mrs+Saint+Delafield&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: pit-wall poster — giant condensed name, a pointer-drawn racing line, then a tight grid of projects read like a timing sheet */
 :root{
@@ -21,7 +21,6 @@
   --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
   --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
-  --sign:"Mrs Saint Delafield","Brush Script MT",cursive;
   --gutter-l:max(16px,env(safe-area-inset-left,0px));
   --gutter-r:max(16px,env(safe-area-inset-right,0px));
 }
@@ -75,8 +74,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .name{font-weight:900;font-size:clamp(4.2rem,17vw,15rem);letter-spacing:-.01em;line-height:.82}
 .name span{display:block}
 .name .outline{color:transparent;-webkit-text-stroke:2px var(--fg)}
-.sig{font-family:var(--sign);font-size:clamp(3rem,9vw,7rem);color:var(--accent-text);line-height:1;transform:rotate(-6deg);margin:-.35em 0 0 auto;width:max-content;max-width:100%;text-transform:none;pointer-events:none}
-@media (max-width:620px){.sig{margin:-.2em 0 .1em auto}.hero .wrap{gap:24px}}
+@media (max-width:620px){.hero .wrap{gap:24px}}
 .hero-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
 .lede{font-size:clamp(1.1rem,1.8vw,1.35rem);max-width:34ch;margin:0;line-height:1.45}
 .lede strong{font-weight:600;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--lime) 70%,transparent) 0)}
@@ -204,8 +202,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <span class="label">Franca · SP · Brasil</span>
     </div>
     <h1 class="name rise d1"><span>Matheus</span><span class="outline">Marques</span></h1>
-    <div class="sig rise d2" aria-hidden="true">Matheus</div>
-    <div class="hero-bottom rise d3">
+    <div class="hero-bottom rise d2">
       <p class="lede">Desenvolvedor <strong>fullstack</strong> em formação. Construo interfaces rápidas, APIs simples de manter e pipelines que colocam código em produção sem drama.</p>
       <div class="cta">
         <a class="btn primary" href="#projetos">Ver projetos
