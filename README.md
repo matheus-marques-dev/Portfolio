@@ -1,43 +1,24 @@
 # Portfólio — Matheus Junior Marques
 
-Site pessoal apresentando minha trajetória como desenvolvedor **Back-End em formação**, com foco em **Java + Spring Boot**, além de projetos, experiência profissional e formação acadêmica.
+Site pessoal apresentando minha trajetória como desenvolvedor, meus projetos, formação e stack.
 
 **Acesse:** (https://matheus-marques-dev.github.io/Portfolio/)
 
 ## Sobre
 
-Página única (one-page) construída para servir como cartão de visitas profissional, reunindo:
+Página única (one-page) com:
 
-- **Hero** — apresentação e proposta profissional
-- **Sobre** — trajetória pessoal e acadêmica
-- **Tech Stack** — tecnologias que domino, com destaque para Java e Spring Boot
-- **Projetos** — peças reais do meu GitHub, com prints/telas dos projetos
-- **Experiência** — histórico profissional em formato de timeline
-- **Formação** — Etec e Fatec
-- **Aprendendo agora** — o que estou estudando no momento
-- **GitHub** — estatísticas públicas em tempo real (via API do GitHub)
-- **Contato** — e-mail, LinkedIn e GitHub
+- **Hero** — nome em destaque e uma "linha de corrida" animada que segue o cursor
+- **Sobre** — trajetória e formação (Etec e Fatec Franca)
+- **Projetos** — QuickBill, Catálogo de Filmes, Conciliador de Estoque e Sistema Bancário, com links para o código
+- **Stack** — front-end, back-end e DevOps
+- **Contato** — LinkedIn e GitHub
+
+Tema claro e escuro automáticos, layout responsivo e respeito a `prefers-reduced-motion`.
 
 ## Tecnologias
 
-Site estático construído apenas com **HTML, CSS e JavaScript puro** — sem frameworks, sem build step:
-
-- HTML5 semântico
-- CSS3 (custom properties, Grid, Flexbox, animações)
-- JavaScript (Intersection Observer, fetch da API do GitHub, sem dependências externas)
-
-## Estrutura do projeto
-
-```
-├── index.html          # marcação e conteúdo do site
-├── css/
-│   └── style.css       # estilos e responsividade
-├── js/
-│   └── script.js       # interações, scroll reveal e integração com a API do GitHub
-├── assets/
-│   └── projects/       # imagens dos projetos exibidos na seção Projetos
-└── robots.txt
-```
+Arquivo único `index.html` com HTML, CSS e JavaScript puro — sem frameworks, sem build step.
 
 ## Rodando localmente
 
