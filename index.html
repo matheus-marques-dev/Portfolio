@@ -75,7 +75,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .status{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--on-lime);padding:6px 12px;border-radius:999px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
 .name{font-weight:900;font-size:clamp(4.2rem,17vw,15rem);letter-spacing:-.01em;line-height:.82}
 .name span{display:block}
-.name .outline{color:transparent;-webkit-text-stroke:2px var(--fg)}
+.name .outline{color:var(--bg);-webkit-text-stroke:2px var(--fg)}
 @media (max-width:620px){.hero .wrap{gap:24px}}
 .hero-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
 .lede{font-size:clamp(1.1rem,1.8vw,1.35rem);max-width:34ch;margin:0;line-height:1.45}
@@ -192,7 +192,7 @@ section{padding-block:clamp(64px,10vw,120px)}
 .btn.cv{background:var(--lime);border-color:var(--lime);color:var(--on-lime)}
 
 .contact h2{font-size:clamp(3.6rem,13vw,11rem);font-weight:900;line-height:.85}
-.contact h2 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--fg)}
+.contact h2 em{font-style:normal;color:var(--bg);-webkit-text-stroke:2px var(--fg)}
 .contact-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:clamp(32px,5vw,56px)}
 .clink{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px 0;border-top:2px solid var(--fg);text-decoration:none}
 .clink b{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4vw,3rem);text-transform:uppercase;line-height:1}
