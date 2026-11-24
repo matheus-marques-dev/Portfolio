@@ -2,7 +2,12 @@
 
 Site pessoal apresentando minha trajetória como desenvolvedor, meus projetos, formação e stack.
 
-**Acesse:** (https://matheus-marques-dev.github.io/Portfolio/)
+## Acesse
+
+- **Vercel:** https://portfolio-nine-eta-16.vercel.app
+- **GitHub Pages:** https://matheus-marques-dev.github.io/Portfolio/
+
+O deploy é automático: cada push no branch `main` atualiza os dois endereços.
 
 ## Sobre
 
