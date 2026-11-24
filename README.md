@@ -15,9 +15,10 @@ Página única (one-page) com:
 
 - **Hero** — nome em destaque e uma "linha de corrida" animada que segue o cursor
 - **Sobre** — trajetória e formação (Etec e Fatec Franca)
-- **Projetos** — QuickBill, Catálogo de Filmes, Conciliador de Estoque e Sistema Bancário, com links para o código
+- **Projetos** — Conciliador de Estoque, QuickBill, Catálogo de Filmes e Sistema Bancário, com prints, problema e solução e link para o site no ar
+- **Experiência** — histórico profissional em e-commerce e marketplaces
 - **Stack** — front-end, back-end e DevOps
-- **Contato** — LinkedIn e GitHub
+- **Contato** — e-mail, currículo em PDF, LinkedIn e GitHub
 
 Tema claro e escuro automáticos, layout responsivo e respeito a `prefers-reduced-motion`.
 
