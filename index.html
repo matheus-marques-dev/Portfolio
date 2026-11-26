@@ -109,7 +109,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .name.go .ch{animation:chIn .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
 .name.go .outline .ch{animation:chDraw .9s cubic-bezier(.6,0,.2,1) both;animation-delay:calc(380ms + var(--i) * 60ms)}
 @keyframes chIn{from{transform:translateY(.55em) rotate(4deg);opacity:0}to{transform:none;opacity:1}}
-@keyframes chDraw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes chDraw{from{clip-path:inset(-50% 100% -50% -20%)}to{clip-path:inset(-50% -20% -50% -20%)}}
 .name .outline{color:var(--bg);-webkit-text-stroke:2px var(--fg)}
 @media (max-width:620px){.hero .wrap{gap:24px}}
 .hero-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
