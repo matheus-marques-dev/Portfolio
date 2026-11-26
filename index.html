@@ -46,6 +46,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:.9;te
 
 /* NAV */
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--lime);transform-origin:0 50%;transform:scaleX(var(--p,0));pointer-events:none}
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
 .brand{font-family:var(--display);font-weight:900;font-size:1.4rem;letter-spacing:.02em;text-decoration:none;display:flex;align-items:center;gap:10px}
@@ -90,7 +91,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .status{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--on-lime);padding:6px 12px;border-radius:999px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
 .name{font-weight:900;font-size:clamp(4.2rem,17vw,15rem);letter-spacing:-.01em;line-height:.82}
-.name span{display:block}
+.name > span{display:block}
+.name .ch{display:inline-block}
+.name.go .ch{animation:chIn .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
+.name.go .outline .ch{animation:chDraw .9s cubic-bezier(.6,0,.2,1) both;animation-delay:calc(380ms + var(--i) * 60ms)}
+@keyframes chIn{from{transform:translateY(.55em) rotate(4deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes chDraw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 .name .outline{color:var(--bg);-webkit-text-stroke:2px var(--fg)}
 @media (max-width:620px){.hero .wrap{gap:24px}}
 .hero-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end}
@@ -187,11 +193,17 @@ section{padding-block:clamp(64px,10vw,120px)}
 
 /* CONTACT */
 /* EXPERIENCE */
-.jobs{list-style:none;margin:0;padding:0;border-top:2px solid var(--fg)}
+.jobs{list-style:none;margin:0;padding:0 0 0 clamp(28px,4vw,44px);border-top:2px solid var(--fg);position:relative}
+.jobs::before,.jobs::after{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--line)}
+.jobs::after{background:var(--lime);transform-origin:50% 0;transform:scaleY(var(--tl,1))}
+.job{position:relative;transition:opacity .5s}
+.job::before{content:"";position:absolute;left:calc(-1 * clamp(28px,4vw,44px) + 2px);top:34px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--fg);z-index:1;transition:background .3s,border-color .3s,transform .3s}
+.job.on::before{background:var(--lime);border-color:var(--lime);transform:scale(1.15)}
+.job.now.on::before{animation:pulse 2.4s ease-in-out infinite}
+.jobs.track .job:not(.on){opacity:.4}
 .job{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:clamp(16px,4vw,48px);padding-block:28px;border-bottom:1px solid var(--line)}
 .job .when{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
 .job .when b{display:block;color:var(--fg);font-weight:500;font-size:.9rem;margin-bottom:2px}
-.job.now .when b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lime);margin-right:8px;vertical-align:middle}
 .job h3{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800}
 .job .org{margin:6px 0 10px;color:var(--accent-text);font-weight:600}
 .job ul{margin:0;padding-left:1.1em;color:var(--muted);max-width:68ch}
@@ -231,6 +243,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <body>
 
 <nav class="nav" aria-label="Principal">
+  <div class="progress" id="progress" aria-hidden="true"></div>
   <div class="wrap">
     <a class="brand" href="#topo"><i aria-hidden="true"></i>MM</a>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
@@ -256,7 +269,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <span class="status"><span aria-hidden="true">●</span> Aberto à primeira oportunidade</span>
       <span class="label">Franca · SP · Brasil</span>
     </div>
-    <h1 class="name rise d1"><span>Matheus</span><span class="outline">Marques</span></h1>
+    <h1 class="name" aria-label="Matheus Marques"><span>Matheus</span><span class="outline">Marques</span></h1>
     <div class="hero-bottom rise d2">
       <p class="lede">Desenvolvedor <strong>fullstack</strong> em formação. Construo interfaces rápidas, APIs simples de manter e pipelines que colocam código em produção sem drama.</p>
       <div class="cta">
@@ -287,9 +300,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         <p>Busco minha primeira oportunidade profissional para aprender com um time e entregar soluções eficientes.</p>
       </div>
       <div class="stats">
-        <div class="stat"><b>23</b><span class="label">Repositórios públicos</span></div>
-        <div class="stat"><b>9+</b><span class="label">Tecnologias</span></div>
-        <div class="stat"><b>2</b><span class="label">Formações</span></div>
+        <div class="stat"><b data-count="23">23</b><span class="label">Repositórios públicos</span></div>
+        <div class="stat"><b data-count="9" data-suffix="+">9+</b><span class="label">Tecnologias</span></div>
+        <div class="stat"><b data-count="2">2</b><span class="label">Formações</span></div>
       </div>
     </div>
     <div>
@@ -505,6 +518,52 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   }
   btn.addEventListener('click', () => { root.lang = root.lang === 'en' ? 'pt-BR' : 'en'; try{ localStorage.setItem('idioma', root.lang === 'en' ? 'en' : 'pt') }catch(e){} apply(); });
   apply();
+})();
+
+// Animações: nome, contadores, barra de progresso e linha do tempo
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1. Nome entrando letra por letra ("largada")
+  const name = document.querySelector('.name');
+  if(name && !reduce){
+    name.querySelectorAll(':scope > span').forEach(line => {
+      const txt = line.textContent; line.textContent = '';
+      [...txt].forEach((c, i) => { const s = document.createElement('span'); s.className = 'ch'; s.style.setProperty('--i', i); s.setAttribute('aria-hidden', 'true'); s.textContent = c; line.appendChild(s); });
+    });
+    requestAnimationFrame(() => name.classList.add('go'));
+  }
+
+  // 2. Contadores do Sobre (telemetria)
+  const nums = document.querySelectorAll('[data-count]');
+  if(!reduce && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if(!e.isIntersecting) return; io.unobserve(e.target);
+      const el = e.target, end = +el.dataset.count, suf = el.dataset.suffix || '', t0 = performance.now(), dur = 1300;
+      (function tick(now){ const k = Math.min(1, (now - t0) / dur), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+        el.textContent = v + (k === 1 ? suf : ''); if(k < 1) requestAnimationFrame(tick); })(t0);
+    }), { threshold: .6 });
+    nums.forEach(n => io.observe(n));
+  }
+
+  // 3. Barra de progresso da página + 4. linha do tempo da experiência
+  const bar = document.getElementById('progress');
+  const jobs = document.querySelector('.jobs'), items = jobs ? [...jobs.querySelectorAll('.job')] : [];
+  if(jobs && !reduce){ jobs.classList.add('track'); jobs.style.setProperty('--tl', 0); }
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--p', max > 0 ? Math.min(1, scrollY / max) : 0);
+    if(!jobs || reduce) { items.forEach(j => j.classList.add('on')); return; }
+    const r = jobs.getBoundingClientRect(), mark = innerHeight * .65;
+    const k = Math.max(0, Math.min(1, (mark - r.top) / r.height));
+    jobs.style.setProperty('--tl', k);
+    items.forEach(j => j.classList.toggle('on', j.offsetTop + 30 <= k * r.height || k === 1));
+  }
+  addEventListener('scroll', () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
 })();
 
 // Modo claro / escuro
