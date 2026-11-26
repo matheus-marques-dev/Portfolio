@@ -8,6 +8,7 @@
 <link rel="icon" href="favicon-32.png?v=2" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <meta name="color-scheme" content="light dark">
+<script>try{var l=localStorage.getItem('idioma');if(!l&&!/^pt/i.test(navigator.language||'pt'))l='en';if(l==='en')document.documentElement.lang='en'}catch(e){}</script>
 <script>try{var t=localStorage.getItem('tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <meta name="theme-color" content="#ECEEE6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#13160E" media="(prefers-color-scheme: dark)">
@@ -54,6 +55,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav ul a{text-decoration:none;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .nav ul a:hover{color:var(--fg)}
 .brand{margin-right:auto}
+.lang-btn{height:44px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:2px;padding:0 6px;margin-left:clamp(12px,2vw,24px);font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;transition:border-color .2s}
+.lang-btn:hover{border-color:var(--fg)}
+.lang-btn span{padding:6px 8px;border-radius:999px;transition:background .2s,color .2s}
+:root:not([lang="en"]) .lang-btn [data-l="pt"],:root[lang="en"] .lang-btn [data-l="en"]{background:var(--lime);color:var(--on-lime)}
+.theme-btn{margin-left:8px!important}
 .theme-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;display:grid;place-items:center;padding:0;margin-left:clamp(12px,2vw,24px);transition:background .2s,border-color .2s,color .2s}
 .theme-btn:hover{background:var(--lime);border-color:var(--lime);color:var(--on-lime)}
 .theme-btn svg{width:20px;height:20px}
@@ -235,6 +241,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
       <li><a href="#stack">Stack</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button" aria-label="Ver site em inglês" title="Ver site em inglês"><span data-l="pt">PT</span><span data-l="en">EN</span></button>
     <button class="theme-btn" id="theme-btn" type="button" aria-label="Alternar modo claro e escuro" title="Alternar modo claro e escuro">
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -396,7 +403,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     </div>
     <ol class="jobs">
       <li class="job now">
-        <div class="when"><b>Jun/2026 — Atual</b><span id="dur-atual" data-start="2026-06">6 meses</span></div>
+        <div class="when"><b>Jun/2026 — Atual</b><span class="dur" data-start="2026-06">6 meses</span> · Presencial · Franca, SP</div>
         <div>
           <h3>Assistente de Marketplace</h3>
           <p class="org">Palácio das Ferramentas</p>
@@ -408,7 +415,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </li>
       <li class="job">
-        <div class="when"><b>Set/2025 — Jun/2026</b>10 meses</div>
+        <div class="when"><b>Set/2025 — Jun/2026</b><span class="dur" data-start="2025-09" data-end="2026-06">10 meses</span> · Presencial · Franca, SP</div>
         <div>
           <h3>Analista de Marketplace</h3>
           <p class="org">Natural Fitness · promovido de Assistente</p>
@@ -420,7 +427,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </li>
       <li class="job">
-        <div class="when"><b>Mar/2025 — Set/2025</b>7 meses</div>
+        <div class="when"><b>Mar/2025 — Set/2025</b><span class="dur" data-start="2025-03" data-end="2025-09">7 meses</span> · Presencial · Franca, SP</div>
         <div>
           <h3>Auxiliar de E-commerce</h3>
           <p class="org">Loja do Som e Acessórios Automotivos</p>
@@ -478,40 +485,77 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
+// Idioma PT / EN
+(function(){
+  const D = {"Sobre": "About", "Projetos": "Projects", "Experiência": "Experience", "Contato": "Contact", "Aberto à primeira oportunidade": "Open to my first opportunity", "Franca · SP · Brasil": "Franca · SP · Brazil", "Desenvolvedor": "", "fullstack": "Full-stack", "em formação. Construo interfaces rápidas, APIs simples de manter e pipelines que colocam código em produção sem drama.": "developer in training. I build fast interfaces, easy-to-maintain APIs and pipelines that ship code to production without drama.", "Ver projetos": "See projects", "Sou apaixonado por tecnologia e transformo ideias em software que funciona de ponta a ponta, do banco de dados ao pixel na tela.": "I'm passionate about technology and I turn ideas into software that works end to end, from the database to the pixel on screen.", "Formado técnico em Desenvolvimento de Sistemas pela Etec Doutor Júlio Cardoso e hoje cursando Desenvolvimento de Software Multiplataforma na Fatec Franca. No dia a dia pratico orientação a objetos em Java, construo front-ends em JavaScript e React e venho estudando DevOps: integração e entrega contínua, versionamento semântico e deploy com Nginx.": "I hold a technical degree in Systems Development from Etec Doutor Júlio Cardoso and I'm currently studying Multiplatform Software Development at Fatec Franca. Day to day I practice object-oriented programming in Java, build front-ends with JavaScript and React, and study DevOps: continuous integration and delivery, semantic versioning and deployment with Nginx.", "Busco minha primeira oportunidade profissional para aprender com um time e entregar soluções eficientes.": "I'm looking for my first professional opportunity to learn with a team and deliver efficient solutions.", "Repositórios públicos": "Public repositories", "Tecnologias": "Technologies", "Formações": "Degrees", "Formação": "Education", "Concluído": "Completed", "Em andamento": "In progress", "Técnico em Desenvolvimento de Sistemas": "Technical Degree in Systems Development", "Desenvolvimento de Software Multiplataforma": "Multiplatform Software Development", "Fatec Franca · Tecnólogo": "Fatec Franca · Associate degree", "Cada projeto resolve um problema real. Clique para abrir o site no ar; o Sistema Bancário roda no console e leva ao código.": "Each project solves a real problem. Click to open the live site; the Banking System runs in the console, so it links to the code.", "Full stack · Em destaque": "Full stack · Featured", "Conciliador de Estoque": "Inventory Reconciler", "Reconcilia o estoque entre o ERP e os marketplaces.": "Reconciles inventory between the ERP and the marketplaces.", "Problema": "Problem", "O que eu fiz": "What I did", "Divergências de estoque entre o ERP e canais como Mercado Livre e Shopee geram vendas sem produto e anúncios zerados sem aviso.": "Inventory mismatches between the ERP and channels like Mercado Livre and Shopee lead to sales without stock and listings dropping to zero without warning.", "Backend em FastAPI (Python) que processa as planilhas com pandas e classifica as divergências, e a interface em React + TypeScript que consome essa API.": "A FastAPI (Python) backend that processes the spreadsheets with pandas and classifies the mismatches, plus the React + TypeScript interface that consumes this API.", "Gerador de orçamentos que exporta PDF direto do navegador, sem backend.": "Quote generator that exports PDFs straight from the browser, with no backend.", "Pequenos negócios precisam emitir orçamentos rápidos sem depender de planilhas ou serviços pagos.": "Small businesses need to issue quick quotes without relying on spreadsheets or paid services.", "Toda a lógica em JavaScript puro, com exportação para PDF via CSS de impressão e dados salvos no LocalStorage.": "All the logic in plain JavaScript, with PDF export via print CSS and data saved in LocalStorage.", "Catálogo de Filmes": "Movie Catalog", "Catálogo interativo com busca, ordenação e favoritos que ficam salvos.": "Interactive catalog with search, sorting and favorites that stay saved.", "Consumir uma base de filmes em JSON e apresentá-la de forma rápida, responsiva e sem telas em branco.": "Consume a JSON movie database and present it quickly and responsively, with no blank screens.", "Interface responsiva em CSS Grid, skeleton loading enquanto carrega, modal de detalhes e favoritos salvos no LocalStorage.": "Responsive CSS Grid interface, skeleton loading while data loads, a details modal and favorites saved in LocalStorage.", "Console · Código no GitHub": "Console · Code on GitHub", "Sistema Bancário": "Banking System", "Simulador bancário via console, minha base prática em Java.": "Console banking simulator, my hands-on foundation in Java.", "Fixar os quatro pilares da orientação a objetos resolvendo um domínio realista: contas corrente e poupança.": "Master the four pillars of object-oriented programming by solving a realistic domain: checking and savings accounts.", "Classes de conta com herança e abstração, saque com comportamento polimórfico por tipo de conta e projeto organizado em camadas (model, service, main).": "Account classes with inheritance and abstraction, withdrawals with polymorphic behavior per account type, and a layered project structure (model, service, main).", "POO": "OOP", "Mais no GitHub": "More on GitHub", "Ver todos os 23 →": "See all 23 →", "Projeto web em desenvolvimento": "Web project in progress", "Pousada App": "Guesthouse App", "Aplicação para pousada": "App for a guesthouse", "Projeto CI/CD": "CI/CD Project", "Integração e entrega contínua": "Continuous integration and delivery", "Barbearia": "Barbershop", "Site para barbearia": "Barbershop website", "Deploy de site estático com Nginx": "Static site deployment with Nginx", "Projeto SemVer": "SemVer Project", "Versionamento semântico": "Semantic versioning", "Antes do código, aprendi o negócio: dados, operação e marketplaces.": "Before code, I learned the business: data, operations and marketplaces.", "Jun/2026 — Atual": "Jun 2026 — Present", "Set/2025 — Jun/2026": "Sep 2025 — Jun 2026", "Mar/2025 — Set/2025": "Mar 2025 — Sep 2025", "· Presencial · Franca, SP": "· On-site · Franca, SP", "Assistente de Marketplace": "Marketplace Assistant", "Analista de Marketplace": "Marketplace Analyst", "Auxiliar de E-commerce": "E-commerce Assistant", "Natural Fitness · promovido de Assistente": "Natural Fitness · promoted from Assistant", "Análise comercial e gestão de marcas nacionais no Mercado Livre.": "Commercial analysis and management of national brands on Mercado Livre.", "Acompanhamento de KPIs e indicadores de desempenho das marcas.": "Tracking KPIs and performance indicators for the brands.", "Análise e definição de precificação.": "Pricing analysis and definition.", "Análise de indicadores para decisões de preço e catálogo.": "Indicator analysis to drive pricing and catalog decisions.", "Gestão de campanhas de Ads no Mercado Livre, Shopee, Amazon, Magalu e TikTok.": "Managed ad campaigns on Mercado Livre, Shopee, Amazon, Magalu and TikTok.", "Resolução de problemas de ponta a ponta, do fluxo de pedidos às ocorrências com transportadoras.": "End-to-end problem solving, from order flow to issues with carriers.", "Cadastro e atualização de produtos em marketplaces e relatórios de desempenho para apoiar decisões comerciais.": "Listing and updating products on marketplaces and building performance reports to support commercial decisions.", "Ferramentas que uso nos projetos acima, do front ao deploy.": "Tools I use in the projects above, from front end to deploy.", "Back-end & dados": "Back-end & data", "Vamos": "Let's", "conversar": "talk", "Copiar": "Copy", "Baixar currículo (PDF)": "Download résumé (PDF, Portuguese)", "Rede profissional": "Professional network", "Código": "Code", "Feito com HTML, CSS e JS": "Built with HTML, CSS and JS", "Tela do Conciliador de Estoque": "Inventory Reconciler screen", "Interface do gerador de orçamentos QuickBill": "QuickBill quote generator interface", "Catálogo de filmes com busca, favoritos e ordenação": "Movie catalog with search, favorites and sorting", "Simulação do console do Sistema Bancário": "Banking System console simulation", "Principal": "Main"};
+  const root = document.documentElement, btn = document.getElementById('lang-btn');
+  window.tr = (pt, en) => root.lang === 'en' ? en : pt;
+  const items = [], attrs = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n =>
+    n.parentElement.closest('script,style,pre,.marquee,svg') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  for(let n; (n = walker.nextNode());){ const v = n.nodeValue, k = v.trim(); if(k && k in D){ const i = v.indexOf(k); items.push([n, v.slice(0, i), k, v.slice(i + k.length)]); } }
+  document.querySelectorAll('[alt],[aria-label]').forEach(e => ['alt','aria-label'].forEach(a => { const v = e.getAttribute(a); if(v && v in D) attrs.push([e, a, v]); }));
+  const meta = { title: [document.title, 'Matheus Marques'] };
+  function apply(){
+    const en = root.lang === 'en';
+    items.forEach(([n, a, k, b]) => n.nodeValue = a + (en ? D[k] : k) + b);
+    attrs.forEach(([e, a, v]) => e.setAttribute(a, en ? D[v] : v));
+    btn.setAttribute('aria-label', en ? 'Ver site em português' : 'View site in English'); btn.title = btn.getAttribute('aria-label');
+    document.dispatchEvent(new Event('langchange'));
+  }
+  btn.addEventListener('click', () => { root.lang = root.lang === 'en' ? 'pt-BR' : 'en'; try{ localStorage.setItem('idioma', root.lang === 'en' ? 'en' : 'pt') }catch(e){} apply(); });
+  apply();
+})();
+
 // Modo claro / escuro
 (function(){
   const btn = document.getElementById('theme-btn'), root = document.documentElement;
   const metas = document.querySelectorAll('meta[name="theme-color"]');
   const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-  function paint(){ const d = isDark(); btn.setAttribute('aria-pressed', d); btn.setAttribute('aria-label', d ? 'Mudar para modo claro' : 'Mudar para modo escuro'); btn.title = btn.getAttribute('aria-label');
+  function paint(){ const d = isDark(); btn.setAttribute('aria-pressed', d); btn.setAttribute('aria-label', d ? tr('Mudar para modo claro','Switch to light mode') : tr('Mudar para modo escuro','Switch to dark mode')); btn.title = btn.getAttribute('aria-label');
     if(root.dataset.theme) metas.forEach(m => m.setAttribute('content', d ? '#13160E' : '#ECEEE6')); }
   btn.addEventListener('click', () => { const next = isDark() ? 'light' : 'dark'; root.setAttribute('data-theme', next); try{ localStorage.setItem('tema', next) }catch(e){} paint(); });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paint);
+  document.addEventListener('langchange', paint);
   paint();
 })();
 
-// Tempo no emprego atual
+// Duração de cada experiência (a atual é calculada até hoje)
 (function(){
-  const el = document.getElementById('dur-atual'); if(!el) return;
-  const [y, m] = el.dataset.start.split('-').map(Number), now = new Date();
-  const n = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m) + 1;
-  if(n > 0) el.textContent = n < 12 ? `${n} ${n === 1 ? 'mês' : 'meses'}` : `${Math.floor(n/12)} ano${n >= 24 ? 's' : ''}${n % 12 ? ` e ${n % 12} ${n % 12 === 1 ? 'mês' : 'meses'}` : ''}`;
+  const now = new Date();
+  function fmt(n){
+    const y = Math.floor(n / 12), m = n % 12;
+    const mo = k => k + ' ' + (k === 1 ? tr('mês','month') : tr('meses','months'));
+    const yr = k => k + ' ' + (k === 1 ? tr('ano','year') : tr('anos','years'));
+    if(!y) return mo(m);
+    return m ? yr(y) + tr(' e ',' and ') + mo(m) : yr(y);
+  }
+  function paint(){
+    document.querySelectorAll('.dur').forEach(el => {
+      const [y1, m1] = el.dataset.start.split('-').map(Number);
+      const [y2, m2] = el.dataset.end ? el.dataset.end.split('-').map(Number) : [now.getFullYear(), now.getMonth() + 1];
+      const n = (y2 - y1) * 12 + (m2 - m1) + 1;
+      if(n > 0) el.textContent = fmt(n);
+    });
+  }
+  document.addEventListener('langchange', paint);
+  paint();
 })();
 
 // Copiar e-mail
 (function(){
   const btn = document.getElementById('copy-email'); if(!btn) return;
   btn.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(btn.dataset.email); btn.textContent = 'Copiado'; }
-    catch(e){ const r = document.createRange(); r.selectNodeContents(document.getElementById('email-link')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selecionado'; }
-    setTimeout(() => btn.textContent = 'Copiar', 1800);
+    try { await navigator.clipboard.writeText(btn.dataset.email); btn.textContent = tr('Copiado','Copied'); }
+    catch(e){ const r = document.createRange(); r.selectNodeContents(document.getElementById('email-link')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = tr('Selecionado','Selected'); }
+    setTimeout(() => btn.textContent = tr('Copiar','Copy'), 1800);
   });
 })();
 
 // Menu mobile
 (function(){
   const nav = document.querySelector('.nav'), btn = document.getElementById('menu-btn');
-  function set(open){ nav.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu'); }
+  function set(open){ nav.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); btn.setAttribute('aria-label', open ? tr('Fechar menu','Close menu') : tr('Abrir menu','Open menu')); }
   btn.addEventListener('click', () => set(!nav.classList.contains('open')));
   nav.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => set(false)));
   addEventListener('keydown', e => { if(e.key === 'Escape') set(false); });
