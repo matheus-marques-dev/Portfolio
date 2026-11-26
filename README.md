@@ -4,7 +4,7 @@ Site pessoal apresentando minha trajetória como desenvolvedor, meus projetos, f
 
 ## Acesse
 
-- **Vercel:** https://portfolio-nine-eta-16.vercel.app
+- **Vercel:** https://matheus-marques.vercel.app
 - **GitHub Pages:** https://matheus-marques-dev.github.io/Portfolio/
 
 O deploy é automático: cada push no branch `main` atualiza os dois endereços.
