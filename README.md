@@ -24,7 +24,7 @@ Tema claro e escuro automáticos, layout responsivo e respeito a `prefers-reduce
 
 ## Tecnologias
 
-Arquivo único `index.html` com HTML, CSS e JavaScript puro — sem frameworks, sem build step.
+Arquivo único `index.html` com HTML, CSS e JavaScript puro sem frameworks, sem build step.
 
 ## Rodando localmente
 
@@ -45,4 +45,4 @@ Depois acesse `http://localhost:8080`.
 
 - **GitHub:** [@matheus-marques-dev](https://github.com/matheus-marques-dev)
 - **LinkedIn:** [matheus-marques](https://www.linkedin.com/in/matheus-marques-34227532a/)
-- **E-mail:** matheusjr432@gmail.com
+- **E-mail:** matheusms.dev@gmail.com
