@@ -382,7 +382,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
     </div>
     <ol class="jobs">
       <li class="job now">
-        <div class="when"><b>Jun/2026 — Atual</b>Presencial</div>
+        <div class="when"><b>Jun/2026 — Atual</b><span id="dur-atual" data-start="2026-06">6 meses</span></div>
         <div>
           <h3>Assistente de Marketplace</h3>
           <p class="org">Palácio das Ferramentas</p>
@@ -394,7 +394,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </li>
       <li class="job">
-        <div class="when"><b>Set/2025 — Jun/2026</b>10 meses · Tempo integral</div>
+        <div class="when"><b>Set/2025 — Jun/2026</b>10 meses</div>
         <div>
           <h3>Analista de Marketplace</h3>
           <p class="org">Natural Fitness · promovido de Assistente</p>
@@ -406,7 +406,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
         </div>
       </li>
       <li class="job">
-        <div class="when"><b>Mar/2025 — Set/2025</b>7 meses · Franca, SP</div>
+        <div class="when"><b>Mar/2025 — Set/2025</b>7 meses</div>
         <div>
           <h3>Auxiliar de E-commerce</h3>
           <p class="org">Loja do Som e Acessórios Automotivos</p>
@@ -463,6 +463,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Tempo no emprego atual
+(function(){
+  const el = document.getElementById('dur-atual'); if(!el) return;
+  const [y, m] = el.dataset.start.split('-').map(Number), now = new Date();
+  const n = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m) + 1;
+  if(n > 0) el.textContent = n < 12 ? `${n} ${n === 1 ? 'mês' : 'meses'}` : `${Math.floor(n/12)} ano${n >= 24 ? 's' : ''}${n % 12 ? ` e ${n % 12} ${n % 12 === 1 ? 'mês' : 'meses'}` : ''}`;
+})();
 
 // Copiar e-mail
 (function(){
